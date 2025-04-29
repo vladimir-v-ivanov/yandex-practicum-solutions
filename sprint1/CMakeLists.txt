@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.22)
+project(yandex_practicum_solutions_sprint1)
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_executable(sprint1_a a.cpp)
+add_executable(sprint1_b b.cpp)
+add_executable(sprint1_c c.cpp)
+add_executable(sprint1_d d.cpp)
+add_executable(sprint1_e e.cpp)
+add_executable(sprint1_f f.cpp)
