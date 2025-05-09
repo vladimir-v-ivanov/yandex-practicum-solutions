@@ -13,10 +13,10 @@ using namespace std;
 
 vector<int> solution(
     const vector<vector<int>>& matrix,
-    const int total_rows,
-    const int total_cols,
-    const int row,
-    const int col
+    const int                  total_rows,
+    const int                  total_cols,
+    const int                  row,
+    const int                  col
 ) {
     vector<int> result;
 
@@ -24,8 +24,8 @@ vector<int> solution(
         constexpr int rows_pad[] = {0, 0, 1, -1};
         constexpr int cols_pad[] = {-1, 1, 0, 0};
 
-        const int     curr_row       = row + rows_pad[i];
-        const int     curr_col       = col + cols_pad[i];
+        const int curr_row = row + rows_pad[i];
+        const int curr_col = col + cols_pad[i];
 
         if (curr_row >= 0 && curr_row < total_rows && curr_col >= 0 && curr_col < total_cols) {
             result.push_back(matrix[curr_row][curr_col]);

@@ -12,16 +12,16 @@ using namespace std;
 
 tuple<int, int, const string> solution(const int len, const string& line) {
     int word_start = 0;
-    int word_end = 0;
-    int max_len = 0;
+    int word_end   = 0;
+    int max_len    = 0;
     int curr_start = 0;
 
     for (int i = 0; i <= len; ++i) {
         if (i == len || line[i] == ' ') {
             if (const int word_len = i - curr_start; word_len > max_len) {
-                max_len = word_len;
+                max_len    = word_len;
                 word_start = curr_start;
-                word_end = i;
+                word_end   = i;
             }
 
             curr_start = i + 1;
