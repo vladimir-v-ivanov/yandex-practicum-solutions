@@ -27,9 +27,13 @@ long long mod_pow(long long base, long long exp, long long mod) {
 }
 
 int main() {
+    freopen("input.txt", "r", stdin);
+
     int    n, k;
     string line;
-    cin >> n >> k >> line;
+    cin >> n >> k;
+    cin.ignore();
+    getline(cin, line);
 
     constexpr int m    = 1000000007;
     constexpr int q    = 911;
@@ -64,4 +68,6 @@ int main() {
     for (const auto index : indexes) {
         cout << index << " ";
     }
+
+    cout << endl;
 }
