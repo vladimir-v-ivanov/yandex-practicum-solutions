@@ -1,9 +1,11 @@
 #ifndef REMOTE_JUDGE
 struct Node {
-    int value;
-    const Node* left = nullptr;
+    int         value;
+    const Node* left  = nullptr;
     const Node* right = nullptr;
-    Node(int value, Node* left, Node* right) : value(value), left(left), right(right) {}
+
+    Node(int value, Node* left, Node* right) : value(value), left(left), right(right) {
+    }
 };
 #endif
 
@@ -22,7 +24,7 @@ int Solution(const Node* root) {
         return INT_MIN;
     }
 
-    const int left = Solution(root->left);
+    const int left  = Solution(root->left);
     const int right = Solution(root->right);
 
     return max(left, max(right, root->value));

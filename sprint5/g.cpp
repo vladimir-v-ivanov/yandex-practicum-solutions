@@ -21,13 +21,13 @@ using namespace std;
 
 int max_sum = INT_MIN;
 
-int dfs(const Node* root) {
+int bfs(const Node* root) {
     if (root == nullptr) {
         return 0;
     }
 
-    const int left_sum  = max(0, dfs(root->left));
-    const int right_sum = max(0, dfs(root->right));
+    const int left_sum  = max(0, bfs(root->left));
+    const int right_sum = max(0, bfs(root->right));
 
     max_sum = max(max_sum, root->value + left_sum + right_sum);
 
@@ -36,7 +36,7 @@ int dfs(const Node* root) {
 
 int Solution(const Node* root) {
     max_sum = INT_MIN;
-    dfs(root);
+    bfs(root);
     return max_sum;
 }
 
