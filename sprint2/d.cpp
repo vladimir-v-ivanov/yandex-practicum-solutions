@@ -12,9 +12,9 @@ using namespace std;
 #ifndef REMOTE_JUDGE
 
 struct Node {
-    string value;
+    string chunk;
     Node* next;
-    Node(string value, Node* next) : value(move(value)), next(next) {}
+    Node(string value, Node* next) : chunk(move(value)), next(next) {}
 };
 
 #endif
@@ -23,7 +23,7 @@ int solution(Node* head, const string& elem) {
     int idx = 0;
 
     while (head != nullptr) {
-        if (head->value == elem) {
+        if (head->chunk == elem) {
             return idx;
         }
 

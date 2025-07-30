@@ -13,16 +13,16 @@ using namespace std;
 #ifndef REMOTE_JUDGE
 
 struct Node {
-    string value;
+    string chunk;
     Node* next;
-    Node(string value, Node* next) : value(std::move(value)), next(next) {}
+    Node(string value, Node* next) : chunk(std::move(value)), next(next) {}
 };
 
 #endif
 
 void solution(Node* head) {
     while (head != nullptr) {
-        cout << head->value << endl;
+        cout << head->chunk << endl;
         head = head->next;
     }
 }

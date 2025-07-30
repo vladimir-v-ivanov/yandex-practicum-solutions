@@ -12,9 +12,9 @@ using namespace std;
 #ifndef REMOTE_JUDGE
 
 struct Node {
-    string value;
+    string chunk;
     Node* next;
-    Node(string value, Node* next) : value(move(value)), next(next) {}
+    Node(string value, Node* next) : chunk(move(value)), next(next) {}
 };
 
 #endif

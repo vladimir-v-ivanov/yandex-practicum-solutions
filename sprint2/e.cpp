@@ -12,10 +12,10 @@ using namespace std;
 #ifndef REMOTE_JUDGE
 
 struct Node {
-    Node(string value, Node* next, Node* prev): value(move(value)), next(next), prev(prev) {
+    Node(string value, Node* next, Node* prev): chunk(move(value)), next(next), prev(prev) {
     }
 
-    string value;
+    string chunk;
     Node*  next;
     Node*  prev;
 };
