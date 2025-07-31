@@ -4,7 +4,7 @@ project(yandex_practicum_solutions_sprint8)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(sprint8_a a.cpp)
-#add_executable(sprint8_b b.cpp)
+add_executable(sprint8_b b.cpp)
 #add_executable(sprint8_c c.cpp)
 #add_executable(sprint8_d d.cpp)
 add_executable(sprint8_e e.cpp)
