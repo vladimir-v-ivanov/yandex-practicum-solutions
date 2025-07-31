@@ -1,52 +1,39 @@
 #include <iostream>
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
-struct Node {
-    string chunk;
-    int weight;
-    Node* left;
-    Node* right;
-    Node* parent;
-};
+int main() {
+    string main;
+    getline(cin, main);
 
-Node* find(Node* node, const int k) {
-    if (node == nullptr) {
-        return nullptr;
+    int num;
+    cin >> num;
+
+    unordered_map<int, string> map;
+
+    for (int i = 0; i < num; i++) {
+        string str;
+        int key;
+        cin >> str >> key;
+
+        map.insert(make_pair(key, str));
     }
 
-    if (node->left == nullptr && node->right == nullptr) {
-        return node;
+    int i;
+
+    for (i = 0; i < main.length(); i++) {
+        if (map.contains(i)) {
+            cout << map[i];
+        }
+
+        cout << main[i];
     }
 
-    if (node->left != nullptr && node->left->weight > k) {
-        return find(node->left, k);
+    if (map.contains(i)) {
+        cout << map[i];
     }
 
-    return find(node->right, k);
+    cout << endl;
 }
-
-Node* merge(Node* left, Node* right) {
-    const auto result = new Node("", left->weight + right->weight, left, right, nullptr);
-    left->parent      = result;
-    right->parent     = result;
-
-    return result;
-}
-
-Node* split(Node* node, const int index) {}
-
-void print(Node* node) {}
-
-void pull(Node* node) {
-    if (node == nullptr) {
-        return;
-    }
-
-    node->weight = node->left->weight + node->right->weight;
-
-    pull(node->parent);
-}
-
-int main() {}
