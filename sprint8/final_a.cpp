@@ -8,7 +8,7 @@ using namespace std;
 enum class NodeType { Leaf, Repeat, Concat };
 struct Node {
     const NodeType type;
-    size_t total_len; // длина распакованного фрагмента
+    size_t total_len;
 };
 struct Leaf final : Node {
     const size_t start;
@@ -29,7 +29,7 @@ struct Repeat final : Node {
         this->total_len = c->total_len * times;
     }
 };
-// asdsd2[jwcn]sasa2[1[emgu]aa3[foo]]1[bzgy]
+// asdsd2[jwcn]sasa2[1[emgu]aa3[foo]]1[bzgy]fas
 // asdsdjwcnjwcnasasemguemgugzgy
 Concat* create_nodes(const string& str, const int start, const int end) {
     auto* concat = new Concat(0);
@@ -38,7 +38,7 @@ Concat* create_nodes(const string& str, const int start, const int end) {
     for (int i = start; i < end; ++i) {
         // Переходим к следующей цифре
         size_t digit_spos = 0;
-        while (!isdigit(str[i]) && i < end) {
+        while (i < end && !isdigit(str[i])) {
             ++i;
         }
 
@@ -54,7 +54,7 @@ Concat* create_nodes(const string& str, const int start, const int end) {
         }
 
         // Ищем открывающую скобку
-        while (str[i] != '[' && i < end) {
+        while (i < end && str[i] != '[') {
             ++i;
         }
 
@@ -64,7 +64,7 @@ Concat* create_nodes(const string& str, const int start, const int end) {
             const int new_start = i + 1;
             int depth           = 1;
 
-            while (depth > 0 && i < end) {
+            while (i < end && depth > 0) {
                 i++;
                 if (str[i] == '[') {
                     ++depth;
@@ -80,8 +80,6 @@ Concat* create_nodes(const string& str, const int start, const int end) {
                 auto* child_node = node->children[0];
                 node->children.clear();
                 repeat = new Repeat(times, child_node);
-                concat->children.push_back(new Repeat(times, child_node));
-
                 delete node;
             } else {
                 repeat = new Repeat(times, node);
