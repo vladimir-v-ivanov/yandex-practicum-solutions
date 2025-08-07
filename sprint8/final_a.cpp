@@ -9,6 +9,8 @@ enum class NodeType { Leaf, Repeat, Concat };
 struct Node {
     const NodeType type;
     size_t total_len;
+    virtual ~Node() = default;
+    Node(NodeType node, size_t size);
 };
 struct Leaf final : Node {
     const size_t start;
@@ -31,11 +33,11 @@ struct Repeat final : Node {
 };
 // asdsd2[jwcn]sasa2[1[emgu]aa3[foo]]1[bzgy]fas
 // asdsdjwcnjwcnasasemguemgugzgy
-Concat* create_nodes(const string& str, const int start, const int end) {
+Concat* create_nodes(const string& str, const size_t start, const size_t end) {
     auto* concat = new Concat(0);
 
-    int leaf_start = start;
-    for (int i = start; i < end; ++i) {
+    size_t leaf_start = start;
+    for (size_t i = start; i < end; ++i) {
         // Переходим к следующей цифре
         size_t digit_spos = 0;
         while (i < end && !isdigit(str[i])) {
@@ -60,9 +62,9 @@ Concat* create_nodes(const string& str, const int start, const int end) {
 
         if (str[i] == '[') {
             // Ищем закрывающую скобку
-            const int times     = atoi(str.substr(digit_spos, i - digit_spos).c_str());
-            const int new_start = i + 1;
-            int depth           = 1;
+            const int times        = atoi(str.substr(digit_spos, i - digit_spos).c_str());
+            const size_t new_start = i + 1;
+            int depth              = 1;
 
             while (i < end && depth > 0) {
                 i++;
@@ -72,7 +74,7 @@ Concat* create_nodes(const string& str, const int start, const int end) {
                     --depth;
                 }
             }
-            const int new_end = i;
+            const size_t new_end = i;
 
             // Оптимизация: разворачиваем Concat с одним потомком
             Repeat* repeat;
@@ -94,39 +96,44 @@ Concat* create_nodes(const string& str, const int start, const int end) {
     return concat;
 }
 
-void clean(const Node* node) {
+void cleanup(Node* node) {
     if (node == nullptr) {
         return;
     }
 
     if (node->type == NodeType::Concat) {
-        for (const Node* child : static_cast<const Concat*>(node)->children) {
-            clean(child);
+        for (Node* child : static_cast<Concat*>(node)->children) {
+            cleanup(child);
         }
     }
 
     if (node->type == NodeType::Repeat) {
-        clean(static_cast<const Repeat*>(node)->child);
+        cleanup(static_cast<Repeat*>(node)->child);
     }
 
     delete node;
 }
 
-int main() {
-    // int num;
-    // cin >> num;
-    //
-    // vector<string> strings(num);
-    // string str;
-    //
-    // for (int i = 0; i < num; i++) {
-    //     cin >> str;
-    //     strings[i] = str;
+char char_at(Concat* node, const size_t pos) {
 
-    string str       = "asdsd2[jwcn]sasa2[1[emgu]aa3[foo]]1[bzgy]";
-    const auto* root = create_nodes(str, 0, str.size());
-    clean(root);
-    // }
-    //
-    // vector dp(num, 0);
+}
+
+int main() {
+    int num;
+    cin >> num;
+
+    vector<Concat*> roots(num);
+    string prefix;
+
+    for (int i = 0; i < num; i++) {
+        string str;
+        cin >> str;
+        roots[i] = create_nodes(str, 0, str.size());
+    }
+
+    for (int i = 0; i < num; i++) {
+        cleanup(roots[i]);
+    }
+
+    roots.clear();
 }
